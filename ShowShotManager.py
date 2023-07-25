@@ -393,3 +393,23 @@ class AssetManager:
         else:
             print(f"Folder '{folder_name}' does not exist.")
             return []
+        
+    def print_description_file(self, folder_name: str) -> None:
+        """
+        Print the contents of the description file in a folder.
+
+        Args:
+            folder_name (str): The name of the folder.
+
+        Returns:
+            None
+        """
+        folder_path = os.path.join(self.directory_path, folder_name)
+        description_path = os.path.join(folder_path, 'description.json')
+        if os.path.exists(description_path):
+            with open(description_path, 'r') as file:
+                description_data = json.load(file)
+                print("Description File Contents:")
+                print(json.dumps(description_data, indent=4))
+        else:
+            print(f"Description file not found in folder '{folder_name}'.")
