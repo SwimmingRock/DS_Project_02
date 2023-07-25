@@ -345,3 +345,26 @@ class AssetManager:
             else:
                 os.makedirs(folder_path)
                 print(f"Folder '{folder_name}' created successfully!")
+
+    def add_description_file(self, folder_name: str, description_data: dict) -> None:
+        """
+        Add a description file to a folder.
+
+        Args:
+            folder_name (str): The name of the folder.
+            description_data (dict): The data to be written to the description file.
+
+        Returns:
+            None
+        """
+        folder_path = os.path.join(self.directory_path, folder_name)
+        if os.path.exists(folder_path):
+            description_path = os.path.join(folder_path, 'description.json')
+            if os.path.exists(description_path):
+                print(f"Description file already exists in folder '{folder_name}'.")
+            else:
+                with open(description_path, 'w') as file:
+                    json.dump(description_data, file, indent=4)
+                print(f"Description file added successfully to folder '{folder_name}'.")
+        else:
+            print(f"Folder '{folder_name}' does not exist.")
