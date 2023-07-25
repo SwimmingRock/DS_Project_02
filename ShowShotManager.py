@@ -437,3 +437,20 @@ class AssetManager:
                 print(f"Description file in folder '{folder_name}' updated successfully.")
         else:
             print(f"Description file not found in folder '{folder_name}'.")
+
+    def delete_asset_folder(self, folder_name: str) -> None:
+        """
+        Delete an asset folder.
+
+        Args:
+            folder_name (str): The name of the asset folder to be deleted.
+
+        Returns:
+            None
+        """
+        folder_path = os.path.join(self.directory_path, folder_name)
+        if os.path.exists(folder_path):
+            shutil.rmtree(folder_path)
+            print(f"Asset folder '{folder_name}' deleted successfully.")
+        else:
+            print(f"Folder '{folder_name}' does not exist.")
