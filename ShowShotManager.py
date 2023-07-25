@@ -413,3 +413,27 @@ class AssetManager:
                 print(json.dumps(description_data, indent=4))
         else:
             print(f"Description file not found in folder '{folder_name}'.")
+
+    def update_description_file(self, folder_name: str, updated_data: dict) -> None:
+        """
+        Update the contents of the description file in a folder.
+
+        Args:
+            folder_name (str): The name of the folder.
+            updated_data (dict): The updated data to be written to the description file.
+
+        Returns:
+            None
+        """
+        folder_path = os.path.join(self.directory_path, folder_name)
+        description_path = os.path.join(folder_path, 'description.json')
+        if os.path.exists(description_path):
+            with open(description_path, 'r+') as file:
+                existing_data = json.load(file)
+                existing_data.update(updated_data)
+                file.seek(0)
+                json.dump(existing_data, file, indent=4)
+                file.truncate()
+                print(f"Description file in folder '{folder_name}' updated successfully.")
+        else:
+            print(f"Description file not found in folder '{folder_name}'.")
