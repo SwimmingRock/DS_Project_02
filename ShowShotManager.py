@@ -511,3 +511,31 @@ class AssetManager:
                 print(f"JSON file '{file_name}' does not exist in folder '{folder_name}'.")
         else:
             print(f"Folder '{folder_name}' does not exist.")
+
+    def get_shots_key_values(self, folder_name: str, file_name: str) -> List[str]:
+        """
+        Get the 'Shots' key values from a JSON file.
+
+        Args:
+            folder_name (str): The name of the asset folder.
+            file_name (str): The name of the JSON file.
+
+        Returns:
+            List[str]: A list of shot data from the 'Shots' key.
+        """
+        folder_path = os.path.join(self.directory_path, folder_name)
+        file_path = os.path.join(folder_path, file_name)
+
+        if not os.path.exists(folder_path):
+            print(f"Folder '{folder_name}' does not exist.")
+            return []
+
+        if not os.path.exists(file_path) or not file_name.endswith('.json') or file_name == 'description.json':
+            print(f"JSON file '{file_name}' does not exist in folder '{folder_name}'.")
+            return []
+
+        with open(file_path, 'r') as file:
+            json_data = json.load(file)
+            shots_data = json_data.get('Shots', [])
+
+        return shots_data
