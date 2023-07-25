@@ -539,3 +539,25 @@ class AssetManager:
             shots_data = json_data.get('Shots', [])
 
         return shots_data
+    
+    def list_json_files(self, folder_name: str) -> list:
+        """
+        List JSON files in a folder.
+
+        Args:
+            folder_name (str): The name of the folder.
+
+        Returns:
+            list: A list of JSON file names.
+        """
+        folder_path = os.path.join(self.directory_path, folder_name)
+        if os.path.exists(folder_path):
+            json_files = []
+            for entry in os.listdir(folder_path):
+                entry_path = os.path.join(folder_path, entry)
+                if os.path.isfile(entry_path) and entry.endswith('.json') and entry != 'description.json':
+                    json_files.append(entry)
+            return json_files
+        else:
+            print(f"Folder '{folder_name}' does not exist.")
+            return []
