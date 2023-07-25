@@ -1,0 +1,10 @@
+{
+    "name": "Doggo",
+    "age": 5,
+    "breed": "Golden Retriever",
+    "assets": [
+        "Prop_collar",
+        "SuperPower_toy_bone",
+        "Environment_Cat_house"
+    ]
+}

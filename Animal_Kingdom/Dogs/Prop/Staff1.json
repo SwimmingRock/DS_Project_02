@@ -1,0 +1,9 @@
+{
+    "name": "Custom Asset2",
+    "additional_info": "This is a custom asset with user-defined data.",
+    "Shots": [
+        "character2",
+        "character6",
+        "character9"
+    ]
+}
