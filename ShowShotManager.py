@@ -368,3 +368,28 @@ class AssetManager:
                 print(f"Description file added successfully to folder '{folder_name}'.")
         else:
             print(f"Folder '{folder_name}' does not exist.")
+
+    def read_asset_folders(self, folder_name: str) -> list:
+        """
+        Get a list of asset folders within a folder.
+
+        Args:
+            folder_name (str): The name of the folder.
+
+        Returns:
+            list: A list of asset folder names.
+        """
+        folder_path = os.path.join(self.directory_path, folder_name)
+        if os.path.exists(folder_path):
+            asset_folders = []
+            for entry in os.listdir(folder_path):
+                entry_path = os.path.join(folder_path, entry)
+                if os.path.isdir(entry_path):
+                    asset_folders.append(entry)
+
+            if len(asset_folders) == 0:
+                print(f"No asset folders found in folder '{folder_name}'.")
+            return asset_folders
+        else:
+            print(f"Folder '{folder_name}' does not exist.")
+            return []
