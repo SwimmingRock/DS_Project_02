@@ -561,3 +561,34 @@ class AssetManager:
         else:
             print(f"Folder '{folder_name}' does not exist.")
             return []
+        
+    def zip_asset_folders(self, folder_names: list) -> None:
+        """
+        Zip multiple asset folders.
+
+        Args:
+            folder_names (list): A list of folder names to be zipped.
+
+        Returns:
+            None
+        """
+        for folder_name in folder_names:
+            folder_path = os.path.join(self.directory_path, folder_name)
+            if os.path.exists(folder_path):
+                zip_file_name = f"{folder_name}.zip"
+                zip_file_path = os.path.join(self.directory_path, zip_file_name)
+
+                with zipfile.ZipFile(zip_file_path, 'w') as zip_file:
+                    for root, _, files in os.walk(folder_path):
+                        for file in files:
+                            file_path = os.path.join(root, file)
+                            arcname = os.path.relpath(file_path, folder_path)
+                            zip_file.write(file_path, arcname)
+
+                print(f"Asset folder '{folder_name}' zipped successfully to '{zip_file_name}'.")
+
+                # Delete the original folder after zipping
+                shutil.rmtree(folder_path)
+                print(f"Asset folder '{folder_name}' deleted after zipping.")
+            else:
+                print(f"Folder '{folder_name}' does not exist.")
