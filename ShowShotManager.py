@@ -316,3 +316,14 @@ class ShotManager:
 # ==================================================================================== END SHOTS ====================================================================================
 
 
+# ==================================================================================== BEGIN ASSETS ====================================================================================
+
+class AssetManager:
+    def __init__(self, directory_path: str):
+        """
+        Initialize the AssetManager with the directory path.
+
+        Args:
+            directory_path (str): The base directory path.
+        """
+        self.directory_path = directory_path
