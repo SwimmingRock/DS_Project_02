@@ -592,3 +592,31 @@ class AssetManager:
                 print(f"Asset folder '{folder_name}' deleted after zipping.")
             else:
                 print(f"Folder '{folder_name}' does not exist.")
+
+    def read_data_from_zip(self, zip_file_name: str, zip_file_directory: str) -> None:
+        """
+        Read and display the contents of a ZIP file.
+
+        Args:
+            zip_file_name (str): The name of the ZIP file to be read.
+            zip_file_directory (str): The directory where the ZIP file is located.
+
+        Returns:
+            None
+        """
+        zip_file_path = os.path.join(zip_file_directory, zip_file_name)
+
+        if not os.path.exists(zip_file_path):
+            print(f"ZIP file '{zip_file_name}' does not exist in the specified directory.")
+            return
+
+        with zipfile.ZipFile(zip_file_path, 'r') as zip_file:
+            print(f"Contents of ZIP file '{zip_file_name}':")
+
+            for file_name in zip_file.namelist():
+                with zip_file.open(file_name) as file:
+                    try:
+                        data = file.read().decode('utf-8', errors='replace')
+                        print(f"\nFile: {file_name}\nData:\n{data}")
+                    except UnicodeDecodeError:
+                        print(f"\nFile: {file_name}\nData: Unable to decode data (binary file).")
