@@ -454,3 +454,29 @@ class AssetManager:
             print(f"Asset folder '{folder_name}' deleted successfully.")
         else:
             print(f"Folder '{folder_name}' does not exist.")
+
+    def create_json_file(self, folder_name: str, description_data: dict, file_name: str) -> None:
+        """
+        Create a JSON file in an asset folder.
+
+        Args:
+            folder_name (str): The name of the asset folder.
+            description_data (dict): The data to be written to the JSON file.
+            file_name (str): The name of the JSON file.
+
+        Returns:
+            None
+        """
+        folder_path = os.path.join(self.directory_path, folder_name)
+        if os.path.exists(folder_path):
+            file_path = os.path.join(folder_path, file_name)
+
+            if os.path.exists(file_path):
+                print(f"JSON file '{file_name}' already exists in folder '{folder_name}'.")
+            else:
+                with open(file_path, 'w') as file:
+                    json.dump(description_data, file, indent=4)
+
+                print(f"JSON file '{file_name}' created successfully in folder '{folder_name}'.")
+        else:
+            print(f"Folder '{folder_name}' does not exist.")
