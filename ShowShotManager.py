@@ -327,3 +327,21 @@ class AssetManager:
             directory_path (str): The base directory path.
         """
         self.directory_path = directory_path
+
+    def create_folders(self, folder_names: list) -> None:
+        """
+        Create multiple folders within the asset manager directory.
+
+        Args:
+            folder_names (list): A list of folder names to be created.
+
+        Returns:
+            None
+        """
+        for folder_name in folder_names:
+            folder_path = os.path.join(self.directory_path, folder_name)
+            if os.path.exists(folder_path):
+                print(f"Folder '{folder_name}' already exists.")
+            else:
+                os.makedirs(folder_path)
+                print(f"Folder '{folder_name}' created successfully!")
