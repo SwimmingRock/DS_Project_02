@@ -480,3 +480,34 @@ class AssetManager:
                 print(f"JSON file '{file_name}' created successfully in folder '{folder_name}'.")
         else:
             print(f"Folder '{folder_name}' does not exist.")
+
+    def update_shots_key(self, folder_name: str, file_name: str, shots_data: List[str]) -> None:
+        """
+        Update the 'Shots' key values in a JSON file.
+
+        Args:
+            folder_name (str): The name of the asset folder.
+            file_name (str): The name of the JSON file.
+            shots_data (List[str]): A list of shot data to be written to the 'Shots' key.
+
+        Returns:
+            None
+        """
+        folder_path = os.path.join(self.directory_path, folder_name)
+        if os.path.exists(folder_path):
+            file_path = os.path.join(folder_path, file_name)
+
+            if os.path.exists(file_path) and file_name.endswith(".json"):
+                with open(file_path, 'r') as file:
+                    json_data = json.load(file)
+
+                json_data["Shots"] = shots_data
+
+                with open(file_path, 'w') as file:
+                    json.dump(json_data, file, indent=4)
+
+                print(f"JSON file '{file_name}' in folder '{folder_name}' has been updated with new Shots data.")
+            else:
+                print(f"JSON file '{file_name}' does not exist in folder '{folder_name}'.")
+        else:
+            print(f"Folder '{folder_name}' does not exist.")
